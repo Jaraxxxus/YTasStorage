@@ -35,7 +35,7 @@ public class ImageGenerator {
     }
 
     public  BufferedImage generateImage(ArrayList<Integer> keys){
-//
+
         BufferedImage frame = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
         Graphics2D g2d = frame.createGraphics();
 
