@@ -14,9 +14,7 @@ public class CreateVideo {
         // time of the next frame
         long nextFrameTime = 0;
 
-
         // video parameters
-
         final int videoStreamIndex = 0;
         final int videoStreamId = 0;
         final long frameRate = DEFAULT_TIME_UNIT.convert(100, MILLISECONDS);
@@ -25,8 +23,8 @@ public class CreateVideo {
         final int height = Integer.parseInt(rb.getString("height"));
         final int rectSize = Integer.parseInt(rb.getString("rectSize"));
         final ImageGenerator imageGenerator = new ImageGenerator(width, height, rectSize);
-        // audio parameters
 
+        // audio parameters
         final int audioStreamIndex = 1;
         final int audioStreamId = 0;
         final int channelCount = 1;
@@ -34,7 +32,6 @@ public class CreateVideo {
         final int sampleCount = 1000;
 
         try {
-
             final IMediaWriter writer = ToolFactory.makeWriter("res.mov");
 
             writer.addListener(ToolFactory.makeViewer(
@@ -47,15 +44,13 @@ public class CreateVideo {
             Random random = new Random();
             for (int i = 0; i < 100; i++){
                 ArrayList<Integer> nums = new ArrayList<>();
+
                 for (int j= 0 ; j < 57600 ; j++){
                     nums.add(random.nextInt(5000));
                 }
 
                 writer.encodeVideo(videoStreamIndex, imageGenerator.generateImage(nums), nextFrameTime, DEFAULT_TIME_UNIT);
                 nextFrameTime += frameRate;
-
-
-
             }
                 /*
                 short[] samples = new short[];
