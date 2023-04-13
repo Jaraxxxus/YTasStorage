@@ -2,12 +2,9 @@ import com.xuggle.mediatool.IMediaViewer;
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 import static com.xuggle.xuggler.Global.DEFAULT_TIME_UNIT;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -16,16 +13,18 @@ public class CreateVideo {
     public static void main(String[] args) {
         // time of the next frame
         long nextFrameTime = 0;
-        ImageGenerator imageGenerator = new ImageGenerator(1280, 720, 16);
+
 
         // video parameters
 
         final int videoStreamIndex = 0;
         final int videoStreamId = 0;
         final long frameRate = DEFAULT_TIME_UNIT.convert(100, MILLISECONDS);
-        final int width = 1280;
-        final int height = 720;
-
+        ResourceBundle rb = ResourceBundle.getBundle("config");
+        final int width = Integer.parseInt(rb.getString("width"));
+        final int height = Integer.parseInt(rb.getString("height"));
+        final int rectSize = Integer.parseInt(rb.getString("rectSize"));
+        final ImageGenerator imageGenerator = new ImageGenerator(width, height, rectSize);
         // audio parameters
 
         final int audioStreamIndex = 1;
@@ -45,20 +44,12 @@ public class CreateVideo {
             writer.addVideoStream(videoStreamIndex, videoStreamId, width, height);
             //writer.addAudioStream(audioStreamIndex, audioStreamId, channelCount, sampleRate);
 
-
-            BufferedImage frame = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-            Graphics2D g2d = frame.createGraphics();
-            g2d.setColor(Color.YELLOW);
-            BufferedImage curFrame = frame;
-            int x = 0;
-            int y = 0;
             Random random = new Random();
             for (int i = 0; i < 100; i++){
-                ArrayList<Integer> nums = new ArrayList<Integer>();
+                ArrayList<Integer> nums = new ArrayList<>();
                 for (int j= 0 ; j < 57600 ; j++){
-                    nums.add(random.nextInt(25));
+                    nums.add(random.nextInt(5000));
                 }
-
 
                 writer.encodeVideo(videoStreamIndex, imageGenerator.generateImage(nums), nextFrameTime, DEFAULT_TIME_UNIT);
                 nextFrameTime += frameRate;
@@ -66,11 +57,6 @@ public class CreateVideo {
 
 
             }
-            File file = new File("img.png");
-            ImageIO.write(frame, "png", file);
-
-
-
                 /*
                 short[] samples = new short[];
                 writer.encodeAudio(audioStreamIndex, samples, clock, DEFAULT_TIME_UNIT);
@@ -83,3 +69,6 @@ public class CreateVideo {
         }
     }
 }
+
+
+
