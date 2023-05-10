@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -45,8 +44,8 @@ public class ImageGenerator {
         Graphics2D g2d = frame.createGraphics();
         int x, y;
         for (int i = 0; i < capacity; i++){
-            x = i/(height / rectSize);
-            y = i%(height / rectSize);
+            x = i%(width / rectSize);
+            y = i/(width / rectSize);
             if (i < keys.size()){
                 g2d.setColor(colorsCode.get(keys.get(i)));
             }
