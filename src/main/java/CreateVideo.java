@@ -5,6 +5,7 @@ import com.xuggle.mediatool.ToolFactory;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.BasicConfigurator;
 
@@ -38,9 +39,9 @@ public class CreateVideo {
                     javax.swing.WindowConstants.EXIT_ON_CLOSE));
 
             writer.addVideoStream(videoStreamIndex, videoStreamId, width, height);
-            Encoder encoder = new Encoder(new File(""), imageGenerator.getFrameCapacity(), imageGenerator.getColorCount());
+            Encoder encoder = new Encoder(new File("C:\\Users\\Sazonov\\Downloads\\sd.txt"), imageGenerator.getFrameCapacity(), imageGenerator.getColorCount());
             while (encoder.hasNextFrame()) {
-                ArrayList<Integer> nums = new ArrayList<>();
+                ArrayList<Integer> nums;
                 nums = encoder.getNextFrame();
                 //Minimum 3 frames, else problems with video stream 0 libx264 H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10
                 writer.encodeVideo(videoStreamIndex, imageGenerator.generateImage(nums), nextFrameTime, DEFAULT_TIME_UNIT);
@@ -48,7 +49,7 @@ public class CreateVideo {
             }
             writer.close();
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(e.getMessage(), e);
         }
     }
