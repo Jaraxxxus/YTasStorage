@@ -9,19 +9,19 @@ public class ImageGenerator {
     HashMap<Integer, Color> colorsCode = new HashMap<>();
     {
         int key = 0;
-        for (int r = 0; r <= 255;  r += 25) {
-            for (int g = 0; g <= 255; g += 25) {
-                for (int b = 0; b <= 255; b += 25) {
+        for (int r = 0; r <= 255;  r += 20) {
+            for (int g = 0; g <= 255; g += 20) {
+                for (int b = 0; b <= 255; b += 20) {
                     colorsCode.put(key, new Color(r, g, b));
                     ++key;
                 }
             }
         }
+        colorCount = colorsCode.size();
         colorsCode.put(-1,new Color(255, 0, 0));
-        colorsCode.put(-2,new Color( 0, 255, 0));
-        colorsCode.put(-3,new Color(255, 0, 255));
+        colorsCode.put(-2,new Color(0, 255, 0));
+        colorsCode.put(-3,new Color(0, 0, 255));
         colorsCode.put(-4,new Color(255, 255, 255));
-        colorCount = colorsCode.size() - 4;
     }
 
     public ImageGenerator(int width, int height, int rectSize) {
